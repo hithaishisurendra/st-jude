@@ -2,31 +2,49 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Play, Trophy, Heart, Share2, Users, Clock, Star, Gift, Phone, Zap } from 'lucide-react'
+import { Play, Trophy, Heart, Share2, Users, Clock, Star, Gift, Phone, Zap, Copy, MessageCircle, Mail, Instagram, Facebook, MessageSquare } from 'lucide-react'
+
+// Custom X (Twitter) Logo Component
+const XIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+)
 
 export default function Home() {
   const [timeLeft, setTimeLeft] = useState({
-    days: 30,
-    hours: 12,
-    minutes: 45,
-    seconds: 30
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
   })
 
-  // Countdown timer
+  // Countdown timer to July 25th CDT
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 }
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 }
-        } else if (prev.days > 0) {
-          return { days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 }
+    const calculateTimeLeft = () => {
+      // July 25th, 2025 at midnight CDT (UTC-5)
+      const targetDate = new Date('2025-07-25T00:00:00-05:00')
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
+
+      if (difference > 0) {
+        return {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
         }
-        return prev
-      })
+      } else {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+      }
+    }
+
+    // Update immediately
+    setTimeLeft(calculateTimeLeft())
+
+    // Then update every second
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft())
     }, 1000)
 
     return () => clearInterval(timer)
@@ -79,17 +97,30 @@ export default function Home() {
 
           {/* Call to Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <button className="bg-neon-red text-white px-10 py-3 rounded-xl font-bold text-lg neon-border hover:bg-opacity-80 transition-all duration-300 animate-glow flex items-center hover:scale-105 transform">
+            <a 
+              href="https://play.thropicgames.com/challenge/gcx-2025/ZxVRDO#Landing%20Page"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-neon-red text-white px-10 py-3 rounded-xl font-bold text-lg neon-border hover:bg-opacity-80 transition-all duration-300 animate-glow flex items-center hover:scale-105 transform no-underline"
+            >
               <Play className="mr-2" size={20} />
               Play Now!
-            </button>
-            <button className="bg-transparent border-2 border-neon-yellow text-neon-yellow px-10 py-3 rounded-xl font-bold text-lg hover:bg-neon-yellow hover:text-black transition-all duration-300 flex items-center hover:scale-105 transform">
+            </a>
+            <a 
+              href="https://www.stjude.org/promotion/impact-giving-pm.html?sc_dcm=58700008005633531&sc_cid=kwp&sc_cat=b&&&&&ds_rl=1285465&ds_rl=1291300&gad_source=1&gad_campaignid=17681679263&gbraid=0AAAAADuyZN5fKGfbwayc7oeGHT-kFcrCf&gclid=EAIaIQobChMI-4uhtOC8jgMVlChECB0ozBhkEAAYASAAEgLtJvD_BwE&gclsrc=aw.ds"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-transparent border-2 border-neon-yellow text-neon-yellow px-10 py-3 rounded-xl font-bold text-lg hover:bg-neon-yellow hover:text-black transition-all duration-300 flex items-center hover:scale-105 transform no-underline"
+            >
               <Heart className="mr-2" size={20} />
               Donate
-            </button>
-            <button className="bg-transparent border-2 border-neon-cyan text-neon-cyan px-10 py-3 rounded-xl font-bold text-lg hover:bg-neon-cyan hover:text-black transition-all duration-300 hover:scale-105 transform">
+            </a>
+            <a 
+              href="#learn-more"
+              className="bg-transparent border-2 border-neon-cyan text-neon-cyan px-10 py-3 rounded-xl font-bold text-lg hover:bg-neon-cyan hover:text-black transition-all duration-300 hover:scale-105 transform no-underline"
+            >
               Learn More
-            </button>
+            </a>
           </div>
 
           {/* Donation Message */}
@@ -108,13 +139,20 @@ export default function Home() {
             <span className="gradient-text">Game Preview</span>
           </h2>
           <div className="flex justify-center mb-8 animate-float">
-            <Image 
-              src="/images/iphone-mockup.png" 
-              alt="St. Jude GCX Challenge Game Preview"
-              width={300}
-              height={600}
-              className="max-w-full h-auto"
-            />
+            <a 
+              href="https://play.thropicgames.com/challenge/gcx-2025/ZxVRDO#Landing%20Page"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:scale-105 transition-all duration-300 cursor-pointer"
+            >
+              <Image 
+                src="/images/iphone-mockup.png" 
+                alt="St. Jude GCX Challenge Game Preview - Click to Play"
+                width={300}
+                height={600}
+                className="max-w-full h-auto hover:opacity-80 transition-opacity duration-300"
+              />
+            </a>
           </div>
           <p className="text-lg text-gray-300 animate-fadeInUp">
             Experience the interactive trivia challenge that combines gaming fun with charitable giving!
@@ -170,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* St. Jude Highlight Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-neon-pink/10 to-neon-cyan/10 relative">
+      <section id="learn-more" className="py-20 px-4 bg-gradient-to-r from-neon-pink/10 to-neon-cyan/10 relative">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-slideInLeft">
@@ -239,76 +277,29 @@ export default function Home() {
           </div>
 
           {/* Prize Breakdown */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* 1st Place */}
-            <div className="text-center p-8 bg-gradient-to-b from-yellow-500/20 to-yellow-600/20 rounded-2xl neon-border border-yellow-500 hover:scale-105 transition-all duration-300 animate-slideInLeft">
-              <Trophy className="text-yellow-500 mx-auto mb-4" size={64} />
-              <h3 className="text-3xl font-bold text-yellow-500 mb-4">1st Place</h3>
-              <div className="space-y-2 text-left">
-                <div className="flex items-center text-white">
-                  <Star className="text-yellow-500 mr-2" size={16} />
-                  GCX 2026 VIP Passes (2)
+          <div className="flex justify-center">
+            {/* Grand Prize */}
+            <div className="text-center p-12 bg-gradient-to-b from-yellow-500/20 to-yellow-600/20 rounded-2xl neon-border border-yellow-500 hover:scale-105 transition-all duration-300 animate-fadeInUp max-w-md">
+              <Trophy className="text-yellow-500 mx-auto mb-6" size={80} />
+              <h3 className="text-4xl font-bold text-yellow-500 mb-6">Grand Prize</h3>
+              <div className="space-y-4 text-center">
+                <div className="flex items-center justify-center text-white text-xl">
+                  <Star className="text-yellow-500 mr-3" size={20} />
+                  GCX Tickets
                 </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-yellow-500 mr-2" size={16} />
-                  Round-trip flights
+                <div className="flex items-center justify-center text-white text-xl">
+                  <Star className="text-yellow-500 mr-3" size={20} />
+                  VIP Experience
                 </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-yellow-500 mr-2" size={16} />
-                  4-night hotel stay
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-yellow-500 mr-2" size={16} />
-                  Meet & greet with creators
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-yellow-500 mr-2" size={16} />
-                  $1,000 spending money
+                <div className="flex items-center justify-center text-white text-xl">
+                  <Star className="text-yellow-500 mr-3" size={20} />
+                  All Expenses Paid
                 </div>
               </div>
-            </div>
-
-            {/* 2nd Place */}
-            <div className="text-center p-8 bg-gradient-to-b from-gray-400/20 to-gray-500/20 rounded-2xl neon-border border-gray-400 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
-              <Gift className="text-gray-400 mx-auto mb-4" size={64} />
-              <h3 className="text-3xl font-bold text-gray-400 mb-4">2nd Place</h3>
-              <div className="space-y-2 text-left">
-                <div className="flex items-center text-white">
-                  <Star className="text-gray-400 mr-2" size={16} />
-                  GCX 2026 Passes (2)
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-gray-400 mr-2" size={16} />
-                  Round-trip flights
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-gray-400 mr-2" size={16} />
-                  3-night hotel stay
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-gray-400 mr-2" size={16} />
-                  $500 spending money
-                </div>
-              </div>
-            </div>
-
-            {/* 3rd Place */}
-            <div className="text-center p-8 bg-gradient-to-b from-amber-600/20 to-amber-700/20 rounded-2xl neon-border border-amber-600 hover:scale-105 transition-all duration-300 animate-slideInRight">
-              <Zap className="text-amber-600 mx-auto mb-4" size={64} />
-              <h3 className="text-3xl font-bold text-amber-600 mb-4">3rd Place</h3>
-              <div className="space-y-2 text-left">
-                <div className="flex items-center text-white">
-                  <Star className="text-amber-600 mr-2" size={16} />
-                  GCX 2026 Passes (2)
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-amber-600 mr-2" size={16} />
-                  Round-trip flights
-                </div>
-                <div className="flex items-center text-white">
-                  <Star className="text-amber-600 mr-2" size={16} />
-                  2-night hotel stay
-                </div>
+              <div className="mt-8 p-4 bg-yellow-500/10 rounded-xl border border-yellow-500/30">
+                <p className="text-yellow-500 font-bold text-lg">
+                  Ultimate GCX Experience!
+                </p>
               </div>
             </div>
           </div>
@@ -318,15 +309,21 @@ export default function Home() {
       {/* Social & Email Section */}
       <section className="py-20 px-4 bg-gradient-to-r from-neon-yellow/10 to-neon-pink/10 relative">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 gradient-text animate-fadeInUp">
-            Challenge Your Friends
+          <h2 className="text-4xl md:text-4xl font-bold mb-8 gradient-text animate-fadeInUp">
+            🤝 Share the game = $10 per friend
           </h2>
-          <p className="text-xl text-gray-300 mb-12 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
-            Share the challenge and compete on the leaderboard!
+          <p className="text-2xl text-neon-yellow mb-6 animate-fadeInUp font-bold" style={{animationDelay: '0.2s'}}>
+            Cash or donation in your name!
+          </p>
+          <p className="text-xl text-gray-300 mb-8 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+            Yep, we're literally paying you to do good and look smart.
+          </p>
+          <p className="text-lg text-gray-400 mb-12 animate-fadeInUp" style={{animationDelay: '0.6s'}}>
+            All it takes is one minute to play — that's quicker than your last online impulse buy.
           </p>
 
           {/* Email Signup */}
-          <div className="bg-black bg-opacity-50 p-8 rounded-2xl neon-border border-neon-blue mb-12 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+          <div className="bg-black bg-opacity-50 p-8 rounded-2xl neon-border border-neon-blue mb-12 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{animationDelay: '0.8s'}}>
             <h3 className="text-2xl font-bold text-neon-blue mb-6 animate-pulse-color">
               Stay Updated
             </h3>
@@ -343,22 +340,81 @@ export default function Home() {
             <div className="flex items-center justify-center mt-4">
               <input type="checkbox" className="mr-2" />
               <span className="text-sm text-gray-400">
-                I agree to the <span className="text-neon-blue underline">terms & conditions</span> of the game and services
+                I agree to the <a href="/terms" className="text-neon-blue underline">terms & conditions</a> of the game and services
               </span>
             </div>
           </div>
 
           {/* Social Sharing */}
-          <div className="flex justify-center space-x-6 animate-fadeInUp" style={{animationDelay: '0.6s'}}>
-            <button className="bg-blue-600 p-4 rounded-full hover:bg-blue-500 transition-all duration-300 hover:scale-110 transform">
-              <Share2 size={24} />
+          <div className="flex justify-center space-x-4 animate-fadeInUp flex-wrap gap-4" style={{animationDelay: '1s'}}>
+            <button 
+              onClick={() => navigator.clipboard?.writeText(window.location.href)}
+              className="bg-gray-600 hover:bg-gray-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Copy Link"
+            >
+              <Copy size={20} />
             </button>
-            <button className="bg-purple-600 p-4 rounded-full hover:bg-purple-500 transition-all duration-300 hover:scale-110 transform">
-              <Users size={24} />
-            </button>
-            <button className="bg-pink-600 p-4 rounded-full hover:bg-pink-500 transition-all duration-300 hover:scale-110 transform">
-              <Heart size={24} />
-            </button>
+            <a 
+              href={`https://wa.me/?text=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + window.location.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share on WhatsApp"
+            >
+              <MessageCircle size={20} />
+            </a>
+            {/* <a 
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share on Instagram"
+              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + window.location.href + ' #StJude #GCX')}
+            >
+              <Instagram size={20} />
+            </a> */}
+            <a 
+              href={`sms:?body=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + window.location.href)}`}
+              className="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share via SMS/iMessage"
+            >
+              <MessageSquare size={20} />
+            </a>
+            <a 
+              href={`mailto:?subject=${encodeURIComponent('St. Jude GCX Challenge - Win GCX Tickets!')}&body=${encodeURIComponent('Hey! Check out this cool St. Jude GCX Challenge. You can play for free, help kids with cancer, and win GCX tickets! It only takes 1 minute: ' + window.location.href)}`}
+              className="bg-red-600 hover:bg-red-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share via Email"
+            >
+              <Mail size={20} />
+            </a>
+            <a 
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! Join me: ' + window.location.href + ' #StJude #GCX #GamingForGood')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black hover:bg-gray-800 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share on X (Twitter)"
+            >
+              <XIcon size={20} />
+            </a>
+            {/* <a 
+              href="https://www.tiktok.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black hover:bg-gray-800 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share on TikTok"
+              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + window.location.href + ' #StJude #GCX')}
+            >
+              <Play size={20} />
+            </a> */}
+            <a 
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-700 hover:bg-blue-600 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
+              title="Share on Facebook"
+            >
+              <Facebook size={20} />
+            </a>
           </div>
         </div>
       </section>
@@ -372,12 +428,17 @@ export default function Home() {
               St. Jude&apos;s GCX Challenge
             </span>
           </div>
-          <p className="text-gray-400 mb-4 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
+          <p className="text-gray-400 mb-8 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
             Together, we can conquer childhood cancer and give hope to families in need.
           </p>
-          <p className="text-sm text-gray-500 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
-            © 2024 St. Jude Children&apos;s Research Hospital. All rights reserved.
+
+          <p className="text-sm text-gray-500 mb-2 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+            © Copyright 2025. St. Jude Children&apos;s Research Hospital, a not-for-profit, section 501(c)(3).
           </p>
+          <div className="text-xs text-gray-600 animate-fadeInUp" style={{animationDelay: '0.5s'}}>
+            <a href="/terms" className="text-neon-blue hover:text-neon-cyan underline mr-4">Terms & Conditions</a>
+            <a href="/privacy" className="text-neon-blue hover:text-neon-cyan underline">Privacy Policy</a>
+          </div>
         </div>
       </footer>
     </div>
