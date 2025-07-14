@@ -19,6 +19,15 @@ export default function Home() {
     seconds: 0
   })
 
+  const [currentUrl, setCurrentUrl] = useState('https://play.thropicgames.com/challenge/gcx-2025/ZxVRDO#Landing%20Page')
+
+  // Set current URL on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href)
+    }
+  }, [])
+
   // Countdown timer to July 25th CDT
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -348,14 +357,14 @@ export default function Home() {
           {/* Social Sharing */}
           <div className="flex justify-center space-x-4 animate-fadeInUp flex-wrap gap-4" style={{animationDelay: '1s'}}>
             <button 
-              onClick={() => navigator.clipboard?.writeText(window.location.href)}
+              onClick={() => navigator.clipboard?.writeText(currentUrl)}
               className="bg-gray-600 hover:bg-gray-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
               title="Copy Link"
             >
               <Copy size={20} />
             </button>
             <a 
-              href={`https://wa.me/?text=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + window.location.href)}`}
+              href={`https://wa.me/?text=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + currentUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-green-600 hover:bg-green-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
@@ -369,26 +378,26 @@ export default function Home() {
               rel="noopener noreferrer"
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
               title="Share on Instagram"
-              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + window.location.href + ' #StJude #GCX')}
+              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + currentUrl + ' #StJude #GCX')}
             >
               <Instagram size={20} />
             </a> */}
             <a 
-              href={`sms:?body=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + window.location.href)}`}
+              href={`sms:?body=${encodeURIComponent('🎮 Play this St. Jude GCX Challenge for a chance to win GCX tickets! Help kids while gaming: ' + currentUrl)}`}
               className="bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
               title="Share via SMS/iMessage"
             >
               <MessageSquare size={20} />
             </a>
             <a 
-              href={`mailto:?subject=${encodeURIComponent('St. Jude GCX Challenge - Win GCX Tickets!')}&body=${encodeURIComponent('Hey! Check out this cool St. Jude GCX Challenge. You can play for free, help kids with cancer, and win GCX tickets! It only takes 1 minute: ' + window.location.href)}`}
+              href={`mailto:?subject=${encodeURIComponent('St. Jude GCX Challenge - Win GCX Tickets!')}&body=${encodeURIComponent('Hey! Check out this cool St. Jude GCX Challenge. You can play for free, help kids with cancer, and win GCX tickets! It only takes 1 minute: ' + currentUrl)}`}
               className="bg-red-600 hover:bg-red-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
               title="Share via Email"
             >
               <Mail size={20} />
             </a>
             <a 
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! Join me: ' + window.location.href + ' #StJude #GCX #GamingForGood')}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! Join me: ' + currentUrl + ' #StJude #GCX #GamingForGood')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-black hover:bg-gray-800 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
@@ -402,12 +411,12 @@ export default function Home() {
               rel="noopener noreferrer"
               className="bg-black hover:bg-gray-800 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
               title="Share on TikTok"
-              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + window.location.href + ' #StJude #GCX')}
+              onClick={() => navigator.clipboard?.writeText('🎮 Playing this St. Jude GCX Challenge to help kids & win GCX tickets! ' + currentUrl + ' #StJude #GCX')}
             >
               <Play size={20} />
             </a> */}
             <a 
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-blue-700 hover:bg-blue-600 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 transform"
