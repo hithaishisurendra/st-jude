@@ -319,10 +319,10 @@ export default function Home() {
       <section className="py-20 px-4 bg-gradient-to-r from-neon-yellow/10 to-neon-pink/10 relative">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-4xl font-bold mb-8 gradient-text animate-fadeInUp">
-            🤝 Share the game = $10 per friend
+            🤝 Share the game = 10% of every donation you earn
           </h2>
           <p className="text-2xl text-neon-yellow mb-6 animate-fadeInUp font-bold" style={{animationDelay: '0.2s'}}>
-            Cash or donation in your name!
+            in Cash or donation in your name!
           </p>
           <p className="text-xl text-gray-300 mb-8 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
             Yep, we're literally paying you to do good and look smart.
