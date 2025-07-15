@@ -116,7 +116,7 @@ export default function Home() {
               Play Now!
             </a>
             <a 
-              href="https://www.stjude.org/promotion/impact-giving-pm.html?sc_dcm=58700008005633531&sc_cid=kwp&sc_cat=b&&&&&ds_rl=1285465&ds_rl=1291300&gad_source=1&gad_campaignid=17681679263&gbraid=0AAAAADuyZN5fKGfbwayc7oeGHT-kFcrCf&gclid=EAIaIQobChMI-4uhtOC8jgMVlChECB0ozBhkEAAYASAAEgLtJvD_BwE&gclsrc=aw.ds"
+              href="https://play.thropicgames.com/challenge/gcx-2025-donation/H4dmuq"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent border-2 border-neon-yellow text-neon-yellow px-10 py-3 rounded-xl font-bold text-lg hover:bg-neon-yellow hover:text-black transition-all duration-300 flex items-center hover:scale-105 transform no-underline"
